@@ -38,6 +38,12 @@ export class GroleService {
   async editeGRole(req: any, body: GlobalRole) {
     let { _id } = QueryStructure(req)
     return await this.GlobalRoleModel.findByIdAndUpdate(_id, body)
+
+    return {
+      success: true,
+      message: '编辑成功!'
+    }
+
   }
 
   // 删除角色 可以批量删除
@@ -48,6 +54,11 @@ export class GroleService {
     List.forEach(async (v) => {
       return await this.GlobalRoleModel.findByIdAndDelete(v)
     })
+
+    return {
+      success: true,
+      message: '删除成功!'
+    }
   }
 
   // 查询角色列表前悬需要，选择器形式

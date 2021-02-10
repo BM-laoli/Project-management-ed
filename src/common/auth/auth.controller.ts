@@ -51,4 +51,11 @@ export class AuthController {
   // getProfile() {
   //   return {message:'您通过的了权限校验'}
   // }
+
+  // 获取用户list
+  @ApiOperation({ summary: '获取用户list列表' })
+  @Get('/auth/useList')
+  async queryUseList() {
+    return this.authService.getList();
+  }
 }

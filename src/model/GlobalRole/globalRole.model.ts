@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from "@nestjs/swagger"
-import { arrayProp, ArrayProp, prop } from "@typegoose/typegoose"
+import { prop } from "@typegoose/typegoose"
 import { IsNotEmpty } from "class-validator"
 
 export class GlobalRole {
@@ -13,7 +13,7 @@ export class GlobalRole {
   @prop({})
   descripition: string
 
-  @ApiPropertyOptional({ description: '角色权限组', example: 'View,Edit,Super' })
-  @prop({})
-  rules: string
+  @ApiPropertyOptional({ description: '角色权限组', example: ['View', 'Edit'] })
+  @prop({ type: () => { return String } })
+  rules: string[]
 }

@@ -2,9 +2,9 @@ import { ApiPropertyOptional } from "@nestjs/swagger";
 import { prop, Ref } from "@typegoose/typegoose";
 import { IsNotEmpty } from "class-validator";
 import { User } from "../User/user.model";
-import { Project } from "./Project.model";
+import { PorjectGroup } from "./PorjectGroup.model";
 
-// 项目中的角色
+// 项目组内的角色
 export class ProjectRoles {
 
   @ApiPropertyOptional({ description: '角色名称', example: 'ISBD109U43' })
@@ -20,7 +20,7 @@ export class ProjectRoles {
   @ApiPropertyOptional({ description: '角色所属于的项目', example: 'ISBD109U43' })
   @IsNotEmpty({ message: '角色所属于的项目是必填的' })
   @prop({})
-  originId: Ref<Project>
+  originGroupId: Ref<PorjectGroup>
 
   @ApiPropertyOptional({ description: '角色下成员的ids', example: 'ISBD109U43' })
   @IsNotEmpty({ message: '角色下成员的ids' })

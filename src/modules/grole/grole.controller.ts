@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiHeader, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { GlobalRole } from 'src/model/GlobalRole/globalRole.model';
@@ -41,7 +41,7 @@ export class GroleController {
   // 删除角色,允许批量操作
   @ApiOperation({ summary: '删除指定ID的角色' })
   @ApiQuery({ name: 'idList', required: false })
-  @Get('deleteRole')
+  @Delete('deleteRole')
   deleteRole(@Request() req: any) {
     return this.GroleService.deleteRole(req)
   }

@@ -63,7 +63,6 @@ export class AuthService {
       })
       .exec()
 
-    console.log('payload', payload);
 
     if (!payload) {
       throw new HttpException(
@@ -74,7 +73,7 @@ export class AuthService {
 
     // 进行解密运算和签名认证
     let UserData: User = payload as any
-    let { username, password } = UserData
+    let { username, password, } = UserData
     const isValid = bcrypt.compareSync(req.password, password)  //
 
     if (!isValid) {
@@ -85,9 +84,15 @@ export class AuthService {
     }
 
     return {
-      access_token: this.jwtService.sign({ username, password }),
+      access_token: this.jwtService.sign({ username, password, _id: payload._id }),
       user: payload
     };
+  }
+
+
+  // 获取用户类表list结构
+  async getList() {
+    return this.UserMolde.find()
   }
 
 }

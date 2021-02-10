@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Post, Put, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Request, UseGuards, } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { PorjectGroup } from 'src/model/ProjectDetails/PorjectGroup.model';
 import { Project } from 'src/model/ProjectDetails/Project.model';
 import { ProjectCategory } from 'src/model/ProjectDetails/ProjectCategory.model';
 import { ProjectComment } from 'src/model/ProjectDetails/ProjectComment.model';
@@ -17,10 +18,42 @@ export class ProJectMController {
     private readonly ProJectMService: ProJectMService
   ) { }
 
+  // ------------------项目组----------------
+  // 创项项目组
+  @ApiOperation({ summary: '创项目组' })
+  @Post('createPorjectGroup')
+  createPorjectGroup(@Body() body: PorjectGroup): any {
+    return this.ProJectMService.createPorjectGroup(body)
+  }
+
+  // 编项目组
+  @ApiOperation({ summary: '修改项目组' })
+  @ApiQuery({ name: '_id', description: '修改项目组的id' })
+  @Put('editePorjectGroup')
+  editePorjectGroup(@Request() req: any, @Body() body: PorjectGroup) {
+    return this.ProJectMService.editePorjectGroup(req, body)
+  }
+
+  // 查项目组
+  @ApiOperation({ summary: '查项目组列表' })
+  @Get('getPorjectGroup')
+  getPorjectGroup(@Request() req: any) {
+    return this.ProJectMService.getPorjectGroup(req)
+  }
+
+  // 删项目组,允许批量操作
+  @ApiOperation({ summary: '删除指定ID项目组' })
+  @ApiQuery({ name: 'idList', required: false })
+  @Delete('deletePorjectGroup')
+  deletePorjectGroup(@Request() req: any) {
+    return this.ProJectMService.deletePorjectGroup(req)
+  }
+
+
   // ------------------项目内角色----------------
   // 创项目内角色 
   @ApiOperation({ summary: '创项目内角色' })
-  @Post('createProjectMieage')
+  @Post('createProjectRoles')
   createProjectRoles(@Body() body: ProjectRoles): any {
     return this.ProJectMService.createProjectRoles(body)
   }
@@ -85,9 +118,14 @@ export class ProJectMController {
     return this.ProJectMService.deleteProjectMieage(req)
   }
 
-
-
   // ------------------ 项目分类----------------
+  // 获取分类的列表结构
+  @ApiOperation({ summary: '获取用户list列表' })
+  @Get('queryListProjectCategory')
+  async queryListProjectCategory() {
+    return this.ProJectMService.getCatList();
+  }
+
   // 创建项目分类 
   @ApiOperation({ summary: '创建项目分类' })
   @Post('createProjectCategory')
@@ -122,6 +160,14 @@ export class ProJectMController {
 
 
   // ------------------ 项目基础信息----------------
+
+  // 获取项目数量统计
+  @ApiOperation({ summary: '获取项目数量统计' })
+  @Get('getTotalforProjectType')
+  getTotalforProjectType(@Request() req: any): any {
+    return this.ProJectMService.getTotalforProjectType(req)
+  }
+
   // 创建项目基础信息
   @ApiOperation({ summary: '创建项目基础信息' })
   @Post('createProject')
@@ -142,7 +188,7 @@ export class ProJectMController {
   @ApiQuery({ name: 'current', required: false })
   @ApiQuery({ name: 'pageSize', required: false })
   @Get('getProjectList')
-  getProject(@Request() req: any) {
+  getProject(@Request() req: any,) {
     return this.ProJectMService.getProject(req)
   }
 
@@ -188,6 +234,7 @@ export class ProJectMController {
     return this.ProJectMService.deletePmLable(req)
   }
 
+
   // ------------------ 项目评论----------------
   // 创建标注
   @ApiOperation({ summary: '创建评论' })
@@ -195,7 +242,6 @@ export class ProJectMController {
   creaetProjectComment(@Body() body: ProjectComment): any {
     return this.ProJectMService.createProjectComment(body)
   }
-
 
   // 查询评论
   @ApiOperation({ summary: '查询评论列表' })

@@ -7,7 +7,7 @@ import { TaskComment } from 'src/model/TaskModel/TaskComment.model';
 import { TaskMService } from './task-m.service'
 
 @ApiTags('任务管理模块')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @Controller('/api/task-m')
 export class TaskMController {
   constructor(

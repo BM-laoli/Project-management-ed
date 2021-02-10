@@ -52,8 +52,8 @@ export class Project {
   @prop({})
   projectIntroduction: string
 
-  @ApiPropertyOptional({ description: '项目状态', example: 'SASDA98766' })
-  @prop({})
+  @ApiPropertyOptional({ description: '项目状态', example: '0' })
+  @prop({ default: '0' })
   projectState: string
 
 }

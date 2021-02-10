@@ -12,16 +12,16 @@ import { Code } from 'src/model/Verification/verification';
 
 @Module({
   imports: [
-    TypegooseModule.forFeature([Code,User]),
+    TypegooseModule.forFeature([Code, User]),
     PassportModule,
     // 注册验证器
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '3600s' },
+      signOptions: { expiresIn: '48h' },
     }),
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy], //依赖进行注入  
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }
